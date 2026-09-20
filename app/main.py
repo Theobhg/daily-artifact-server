@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse, RedirectResponse, Response
 from app.config import settings
 from app.database import init_db
 from app.exceptions import DomainError
+from app.routers import artifacts
 
 API_DESCRIPTION = """
 **One day. One artifact.**
@@ -89,3 +90,6 @@ async def handle_domain_error(_: Request, exc: DomainError) -> JSONResponse:
 async def root() -> RedirectResponse:
     """Leva quem abre a raiz da API direto para a documentacao."""
     return RedirectResponse(url="/docs")
+
+
+app.include_router(artifacts.router)
