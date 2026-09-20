@@ -26,6 +26,15 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+def _same_as_created_at(context) -> datetime:
+    """Faz updated_at nascer identico a created_at.
+
+    Chamar _now() duas vezes produziria carimbos separados por microssegundos,
+    e a interface passaria a exibir "editado em" para um artefato recem-criado.
+    """
+    return context.get_current_parameters()["created_at"]
+
+
 class Artifact(Base):
     """Artefato que representa um unico dia.
 
@@ -46,7 +55,7 @@ class Artifact(Base):
     url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=_now, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, default=_now, onupdate=_now, nullable=False
+        DateTime, default=_same_as_created_at, onupdate=_now, nullable=False
     )
 
     # selectin evita o problema de N+1 ao listar artefatos com suas tags.
