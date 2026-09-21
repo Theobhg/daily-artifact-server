@@ -66,7 +66,7 @@ class ArtifactBase(BaseModel):
         return self
 
 
-_CREATE_EXAMPLE = {
+_CREATE_EXAMPLE: dict[str, Any] = {
     "artifact_date": "2026-09-20",
     "type": "quote",
     "title": "Anotado no fim da tarde",

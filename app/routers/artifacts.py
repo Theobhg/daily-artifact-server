@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Path, Query, Response, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.models.artifact import ArtifactType
+from app.models.artifact import Artifact, ArtifactType
 from app.schemas.artifact import ArtifactCreate, ArtifactResponse, ArtifactUpdate
 from app.services.artifact_service import ArtifactService
 
@@ -39,7 +39,7 @@ def get_service(db: Session = Depends(get_db)) -> ArtifactService:
 def create_artifact(
     payload: ArtifactCreate,
     service: ArtifactService = Depends(get_service),
-) -> ArtifactResponse:
+) -> Artifact:
     return service.create_artifact(payload)
 
 
@@ -59,7 +59,7 @@ def list_artifacts(
     month: int | None = Query(default=None, ge=1, le=12, description="Filtra por mes (1 a 12)."),
     tag: str | None = Query(default=None, description="Filtra por tag (case-insensitive)."),
     service: ArtifactService = Depends(get_service),
-) -> list[ArtifactResponse]:
+) -> list[Artifact]:
     return service.list_artifacts(type=type, year=year, month=month, tag=tag)
 
 
@@ -79,7 +79,7 @@ def list_artifacts(
 )
 def get_random_artifact(
     service: ArtifactService = Depends(get_service),
-) -> ArtifactResponse:
+) -> Artifact:
     return service.get_random_artifact()
 
 
@@ -96,7 +96,7 @@ def get_random_artifact(
 def get_artifact_by_date(
     artifact_date: date = Path(description="Data no formato ISO (YYYY-MM-DD)."),
     service: ArtifactService = Depends(get_service),
-) -> ArtifactResponse:
+) -> Artifact:
     return service.get_artifact_by_date(artifact_date)
 
 
@@ -110,7 +110,7 @@ def get_artifact_by_date(
 def get_artifact(
     artifact_id: int = Path(ge=1, description="Identificador do artefato."),
     service: ArtifactService = Depends(get_service),
-) -> ArtifactResponse:
+) -> Artifact:
     return service.get_artifact(artifact_id)
 
 
@@ -129,7 +129,7 @@ def update_artifact(
     payload: ArtifactUpdate,
     artifact_id: int = Path(ge=1, description="Identificador do artefato."),
     service: ArtifactService = Depends(get_service),
-) -> ArtifactResponse:
+) -> Artifact:
     return service.update_artifact(artifact_id, payload)
 
 

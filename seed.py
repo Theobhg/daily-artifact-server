@@ -12,6 +12,7 @@ from datetime import date, timedelta
 
 from app.database import SessionLocal, init_db
 from app.exceptions import DomainError
+from app.models.artifact import ArtifactType
 from app.schemas.artifact import ArtifactCreate
 from app.services.artifact_service import ArtifactService
 
@@ -62,7 +63,7 @@ def main() -> None:
         for days_ago, artifact_type, title, content, url, tags in SAMPLES:
             payload = ArtifactCreate(
                 artifact_date=today - timedelta(days=days_ago),
-                type=artifact_type,
+                type=ArtifactType(artifact_type),
                 title=title,
                 content=content,
                 url=url,
