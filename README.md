@@ -5,6 +5,9 @@
 API do **Daily Artifact**: cada dia é representado por um único artefato
 (frase, pensamento, foto, música ou link).
 
+Projeto de final de trimestre da Pós-Graduação em Engenharia de Software da
+PUC-Rio.
+
 O frontend está em
 [`daily-artifact-client`](https://github.com/Theobhg/daily-artifact-client).
 
