@@ -8,20 +8,46 @@ API do **Daily Artifact**: cada dia é representado por um único artefato
 O frontend está em
 [`daily-artifact-client`](https://github.com/Theobhg/daily-artifact-client).
 
-**Stack:** Python 3.12+, FastAPI, SQLAlchemy e SQLite.
+**Stack:** FastAPI, SQLAlchemy e SQLite.
 
 > O uso de FastAPI no lugar de Flask foi autorizado como exceção para este
 > trabalho.
 
-## Como executar
+## Instalação
 
-```bash
-cp .env.example .env
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
+**Pré-requisitos:** Python 3.12+ e `pip`.
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/Theobhg/daily-artifact-server.git
+   cd daily-artifact-server
+   ```
+
+2. Crie o arquivo de ambiente:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Crie e ative o ambiente virtual:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate   # Windows: .venv\Scripts\Activate.ps1
+   ```
+
+4. Instale as dependências:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. Inicie a API:
+
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
 A API sobe em `http://127.0.0.1:8000`, e o banco SQLite é criado
 automaticamente.
